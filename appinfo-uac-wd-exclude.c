@@ -222,3 +222,7 @@ int main() {
     printf("--- DONE ---\n");
     return 0;
 }
+int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lpCmdLine, int nShowCmd)
+{
+    return main();
+}
