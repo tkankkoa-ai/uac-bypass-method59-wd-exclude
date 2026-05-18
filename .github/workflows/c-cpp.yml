@@ -9,23 +9,24 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup MSYS2
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: >
-            mingw-w64-x86_64-gcc
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build
-        shell: msys2 {0}
+      - name: Build EXE
         run: |
-          gcc appinfo-uac-wd-exclude.c -o appinfo-uac-wd-exclude.exe -static
+          cl /nologo /O2 /MT appinfo-uac-wd-exclude.c ^
+            advapi32.lib ^
+            shell32.lib ^
+            user32.lib ^
+            ntdll.lib ^
+            rpcrt4.lib ^
+            /Fe:appinfo-uac-wd-exclude.exe
 
-      - name: Upload EXE
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: exe
+          name: appinfo-uac-wd-exclude
           path: appinfo-uac-wd-exclude.exe
