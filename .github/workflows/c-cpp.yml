@@ -1,0 +1,28 @@
+name: Build EXE
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+
+      - name: Build EXE
+        run: |
+          gcc appinfo-uac-wd-exclude.c -o appinfo-uac-wd-exclude.exe -static
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: appinfo-uac-wd-exclude.exe
