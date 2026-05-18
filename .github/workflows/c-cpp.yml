@@ -15,17 +15,12 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build EXE
+      - name: Build
+        shell: powershell
         run: |
-          cl /nologo /O2 /MT appinfo-uac-wd-exclude.c ^
-            advapi32.lib ^
-            shell32.lib ^
-            user32.lib ^
-            ntdll.lib ^
-            rpcrt4.lib ^
-            /Fe:appinfo-uac-wd-exclude.exe
+          cl /nologo /O2 /MT appinfo-uac-wd-exclude.c /link advapi32.lib shell32.lib user32.lib ntdll.lib rpcrt4.lib /OUT:appinfo-uac-wd-exclude.exe
 
-      - name: Upload artifact
+      - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: appinfo-uac-wd-exclude
