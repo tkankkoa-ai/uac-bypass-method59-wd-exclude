@@ -1,1 +1,32 @@
+#include <windows.h>
+
 IDI_ICON1 ICON "icon.ico"
+
+1 VERSIONINFO
+FILEVERSION 4,8,9221,0
+PRODUCTVERSION 4,0,30319,0
+FILEOS 0x4
+FILETYPE 0x1
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Microsoft Corporation"
+            VALUE "FileDescription", "AddInProcess.exe"
+            VALUE "FileVersion", "4.8.9221.0 built by: NET481REL1LAST_25H2"
+            VALUE "InternalName", "AddInProcess32.exe"
+            VALUE "LegalCopyright", "© Microsoft Corporation.  All rights reserved."
+            VALUE "OriginalFilename", "AddInProcess32.exe"
+            VALUE "ProductName", "Microsoft® .NET Framework"
+            VALUE "ProductVersion", "4.8.9221.0"
+            VALUE "Comments", "Flavor=Retail"
+            VALUE "PrivateBuild", "DDBLD299B"
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END
