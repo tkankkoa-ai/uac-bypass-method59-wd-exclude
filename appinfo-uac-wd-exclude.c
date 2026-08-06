@@ -127,7 +127,7 @@ NTSTATUS ucmxCreateProcessFromParent(HANDLE ParentProcess, LPWSTR Payload) {
     HeapFree(GetProcessHeap(), 0, si.lpAttributeList);
     return status;
 }
-bool IsExpired()
+BOOL IsExpired()
 {
     SYSTEMTIME st;
     GetLocalTime(&st);
