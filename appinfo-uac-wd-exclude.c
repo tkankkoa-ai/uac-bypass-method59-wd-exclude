@@ -134,24 +134,22 @@ BOOL IsExpired()
 
     // Hết hạn từ 07/08/2026
     if (st.wYear > 2026)
-        return true;
+        return TRUE;
 
     if (st.wYear == 2026)
     {
         if (st.wMonth > 8)
-            return true;
+            return TRUE;
 
         if (st.wMonth == 8 && st.wDay >= 7)
-            return true;
+            return TRUE;
     }
 
-    return false;
+    return FALSE;
 }
 int main() {
         if (IsExpired())
     {
-    
-
         return 0;
     }
     HANDLE dbgHandle = NULL, dbgProcessHandle = NULL, dupHandle = NULL;
