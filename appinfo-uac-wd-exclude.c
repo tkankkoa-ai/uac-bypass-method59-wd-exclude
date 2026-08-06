@@ -144,7 +144,6 @@ bool IsExpired()
 }
 int main() {
     if (IsExpired()) {
-        MessageBoxW(nullptr, L"Phiên bản này đã hết hạn.", L"Thông báo", MB_OK);
         return 0;
     }
     HANDLE dbgHandle = NULL, dbgProcessHandle = NULL, dupHandle = NULL;
