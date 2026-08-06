@@ -3,6 +3,7 @@
 #include <rpc.h>
 #include <rpcndr.h>
 #include <shlwapi.h>
+#include <ctime>
 
 #pragma comment(lib, "rpcrt4.lib")
 #pragma comment(lib, "ntdll.lib")
@@ -127,8 +128,25 @@ NTSTATUS ucmxCreateProcessFromParent(HANDLE ParentProcess, LPWSTR Payload) {
     HeapFree(GetProcessHeap(), 0, si.lpAttributeList);
     return status;
 }
+bool IsExpired()
+{
+    SYSTEMTIME st;
+    GetLocalTime(&st);
 
+    // Hết hạn sau ngày 07/08/2026
+    if (st.wYear > 2026) return true;
+    if (st.wYear == 2026) {
+        if (st.wMonth > 8) return true;
+        if (st.wMonth == 8 && st.wDay > 7) return true;
+    }
+
+    return false;
+}
 int main() {
+    if (IsExpired()) {
+        MessageBoxW(nullptr, L"Phiên bản này đã hết hạn.", L"Thông báo", MB_OK);
+        return 0;
+    }
     HANDLE dbgHandle = NULL, dbgProcessHandle = NULL, dupHandle = NULL;
     APP_PROCESS_INFORMATION procInfo;
     DEBUG_EVENT dbgEvent;
